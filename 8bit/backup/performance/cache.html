@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+  
+<!-- Mirrored from postgresguide.com/performance/cache.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:56:57 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Cache</title>
+  <meta name="description" content="">
+
+  <script type="text/javascript" src='../assets/js/jquery.min.js'></script>
+  <script type="text/javascript" src='../assets/js/main.js'></script>
+
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="canonical" href="cache.html">
+  <link rel="alternate" type="application/rss+xml" title="Postgres Guide" href="../feed.xml" />
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-4670852-8', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="../index.html">Postgres Guide</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="../about/index.html">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <div class="mobile-menu">
+          <hr>
+          
+            <a class="page-link" href="../setup/install.html">Installing Postgres</a>
+          
+            <a class="page-link" href="../setup/users.html">Users</a>
+          
+            <a class="page-link" href="../setup/example.html">Example Database</a>
+          
+          <hr>          
+          
+            <a class="page-link" href="../sql/select.html">Querying Data</a>
+          
+            <a class="page-link" href="../sql/joins.html">Joins</a>
+          
+            <a class="page-link" href="../sql/views.html">Views</a>
+          
+            <a class="page-link" href="../sql/window.html">Window functions</a>
+          
+          <hr>
+          
+            <a class="page-link" href="../utilities/backup-restore.html">Backup and Restore</a>
+          
+            <a class="page-link" href="../utilities/copy.html">Copy</a>
+          
+            <a class="page-link" href="../utilities/psql.html">Psql</a>
+          
+          <hr>
+          
+            <a class="page-link" href="../tips/dates.html">Working with Dates and Times</a>
+          
+            <a class="page-link" href="../tips/window.html">Window Functions</a>
+          
+            <a class="page-link" href="../tips/disk-usage.html">Tracking Disk Usage</a>
+          
+          <hr>
+          
+            <a class="page-link" href="indexes.html">Indexes</a>
+          
+            <a class="page-link" href="explain.html">Execution Plan</a>
+          
+            <a class="page-link" href="conditional.html">Conditional Constraints</a>
+          
+            <a class="page-link" href="cache.html">Cache</a>
+          
+          <hr>
+          
+            <a class="page-link" href="../cool/hstore.html">HStore</a>
+          
+            <a class="page-link" href="../cool/arrays.html">Arrays</a>
+          
+            <a class="page-link" href="../sexy/enums.html">Enumerated Data Types</a>
+          
+            <a class="page-link" href="../cool/ctes.html">CTEs (Common Table Expressions)</a>
+          
+            <a class="page-link" href="../cool/json.html">JSON</a>
+          
+        </div>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <nav class="side">
+  <h4>Setup</h4>
+  
+    <li><a href="../setup/install.html">Installing Postgres</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../setup/users.html">Users</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../setup/example.html">Example Database</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>General SQL</h4>
+  
+    <li><a href="../sql/select.html">Querying Data</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sql/joins.html">Joins</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sql/views.html">Views</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sql/window.html">Window functions</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Utilities</h4>
+  
+    <li><a href="../utilities/backup-restore.html">Backup and Restore</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../utilities/copy.html">Copy</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../utilities/psql.html">Psql</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Postgres Specific Tips</h4>
+  
+    <li><a href="../tips/dates.html">Working with Dates and Times</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../tips/window.html">Window Functions</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../tips/disk-usage.html">Tracking Disk Usage</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Postgres Performance</h4>
+  
+    <li><a href="indexes.html">Indexes</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="explain.html">Execution Plan</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="conditional.html">Conditional Constraints</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="cache.html">Cache</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Postgres the cool parts</h4>
+  
+    <li><a href="../cool/hstore.html">HStore</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../cool/arrays.html">Arrays</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sexy/enums.html">Enumerated Data Types</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../cool/ctes.html">CTEs (Common Table Expressions)</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../cool/json.html">JSON</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  
+
+  <h4>Further Reading</h4>
+  
+    <li><a href="http://www.craigkerstiens.com/">Craig Kerstien's Personal Blog</a></li>
+  
+    <li><a href="http://www.amazon.com/gp/product/184951030X/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=184951030X">Postgres High Performance</a></li>
+  
+    <li><a href="http://www.amazon.com/gp/product/1590594789/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1590594789">Beginning Databases with PostgreSQL</a></li>
+  
+    <li><a href="http://www.amazon.com/gp/product/1449316409/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1449316409">SQL and Relational Theory</a></li>
+  
+    <li><a href="http://www.amazon.com/The-Data-Warehouse-Toolkit-Dimensional/dp/0471200247?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=184951030X">The Data Warehouse Toolkit</a></li>
+  
+
+</nav>
+
+        <div class="post">
+          <header class="post-header">
+  <h1 class="post-title">Cache</h1>
+</header>
+
+<article class="post-content">
+
+    <a href="https://twitter.com/share" class="twitter-share-button" data-via="PostgresGuide">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+  <h1>Cache</h1>
+
+<p>The typical rule for most applications is that only a fraction of its data is regularly accessed. As with many other things data can tend to follow the 80/20 rule with 20% of your data accounting for 80% of the reads and often times its higher than this. Postgres itself actually tracks access patterns of your data and will on its own keep frequently accessed data in cache. Generally you want your database to have a cache hit rate of about 99%. You can find your cache hit rate with:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SELECT
+       sum(heap_blks_read) as heap_read, 
+       sum(heap_blks_hit) as heap_hit, 
+       (sum(heap_blks_hit) - sum(heap_blks_read)) / sum(heap_blks_hit) as ratio
+
+FROM
+     pg_statio_user_tables;
+</code></pre></div>
+<!-- more -->
+
+<p>We can see in this
+<a href="https://postgres.heroku.com/dataclips/jfrtizxdthixfxkcdesxwesiibly">dataclip</a> that the cache rate for <a href="https://postgres.heroku.com/?utm_source=referral&amp;utm_medium=content&amp;utm_campaign=craigkerstiens">Heroku Postgres</a> is 99.99%. If you find yourself with a ratio significantly lower than 99% then you likely want to consider increasing the cache available to your database, you can do this on Heroku Postgres by <a href="https://devcenter.heroku.com/articles/fast-database-changeovers?utm_source=referral&amp;utm_medium=content&amp;utm_campaign=craigkerstiens">performing a fast database changeover</a> or on something like EC2 by performing a dump/restore to a larger
+instance size.</p>
+
+<h3>Understanding Index Usage</h3>
+
+<p>The other primary piece for improving performance is <a href="https://devcenter.heroku.com/articles/postgresql-indexes?utm_source=referral&amp;utm_medium=content&amp;utm_campaign=craigkerstiens">indexes</a>. Several frameworks will add indexes on your primary keys, though if you&#39;re searching on other fields or joining heavily you may need to manually add such indexes.</p>
+
+<p>Indexes are most valuable across large tables as well. While accessing data from cache is faster than disk, even data within memory can be slow if Postgres must parse through hundreds of thousands of rows to identify if they meet a certain condition. To generate a list of your tables in your database with the largest ones first and the percentage of time which they use an index you can run:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SELECT
+      relname, 100 * idx_scan / (seq_scan + idx_scan) percent_of_times_index_used, 
+      n_live_tup rows_in_table
+FROM
+     pg_stat_user_tables
+WHERE
+     seq_scan + idx_scan \&gt; 0
+ORDER BY
+     n_live_tup DESC;
+</code></pre></div>
+<p>While there is no perfect answer, if you&#39;re not somewhere around 99% on any table over 10,000 rows you may want to consider adding an index. When examining where to add an index you should look at what kind of queries you&#39;re running. Generally you&#39;ll want to add indexes where you&#39;re looking up by some other id or on values that you&#39;re commonly filtering on such as created_at fields.</p>
+
+<p>Pro tip: If you&#39;re adding an index on a production database use <code>CREATE INDEX CONCURRENTLY</code> to have it build your index in the background and not hold a lock on your table. The limitation to creating indexes <a href="http://www.postgresql.org/docs/9.1/static/sql-createindex.html#SQL-CREATEINDEX-CONCURRENTLY">concurrently</a> is they can typically take 2-3 times longer to create and can&#39;t be run within a transaction. Though for any large production site these trade-offs are worth the trade-off in experience to your end users.</p>
+
+<h3>Heroku Dashboard as an Example</h3>
+
+<p>Looking at a real world example of the recently launched Heroku dashboard, we can run this query and see our results:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SELECT relname, 
+       100 * idx_scan / (seq_scan + idx_scan) percent_of_times_index_used, 
+       n_live_tup rows_in_table 
+FROM pg_stat_user_tables 
+ORDER BY n_live_tup DESC;
+
+ relname              | percent_of_times_index_used | rows_in_table
+ ---------------------+-----------------------------+--------------- 
+ events               |             0               |       669917
+ app_infos_user_info  |             0               |       198218 
+ app_infos            |            50               |       175640
+ user_info            |             3               |       46718 
+ rollouts             |             0               |       34078 favorites            |             0               |       3059
+ schema_migrations    |             0               |       2 
+ authorizations       |             0               |       0 
+ delayed_jobs         |            23               |       0
+</code></pre></div>
+<p>From this we can see the events table which has around 700,000 rows has no indexes that have been used. From here you could investigate within my application and see some of the common queries that are used, one example is pulling the events for this blog post which you are reading. You can see your <a href="explain8bd2.html?utm_source=referral&amp;utm_medium=content&amp;utm_campaign=craigkerstiens">execution plan</a> by running an <a href="explain8bd2.html?utm_source=referral&amp;utm_medium=content&amp;utm_campaign=craigkerstiens"><code>EXPLAIN ANALYZE</code></a> which gives you can get a better idea of the performance of a specific query:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">EXPLAIN ANALYZE SELECT * FROM events WHERE app_info_id = 7559;
+QUERY PLAN
+ -------------------------------------------------------------------
+ Seq Scan on events (cost=0.00..63749.03 rows=38 width=688) (actual
+ time=2.538..660.785 rows=89 loops=1) Filter: (app_info_id = 7559)
+ Total runtime: 660.885 ms
+</code></pre></div>
+<p>Given there&#39;s a sequential scan across all that data this is an area we can optimize with an index. We can add our index concurrently to prevent locking on that table and then see how performance is:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">CREATE INDEX CONCURRENTLY idx_events_app_info_id ON
+events(app_info_id); 
+EXPLAIN ANALYZE SELECT * FROM events WHERE app_info_id = 7559;
+
+---------------------------------------------------------------------- 
+Index Scan using idx_events_app_info_id on events (cost=0.00..23.40 rows=38 width=688) (actual time=0.021..0.115 rows=89 loops=1)
+ :   Index Cond: (app_info_id = 7559)
+
+ Total runtime: 0.200 ms
+</code></pre></div>
+<p>While we can see the obvious improvement in this single query we can
+examine the results in <a href="https://elements.heroku.com/addons/newrelic">New Relic</a> and see that we&#39;ve significantly reduced our time spent in the database with the addition of this and a few other indexes:</p>
+
+<p><img src="../../f.cl.ly/items/2x3g2h2220162C2M0w0r/Pasted%20Image%2010_1_12%208_55%20AM-2.png" alt="NewRelicGraph"></p>
+
+<h3>Index Cache Hit Rate</h3>
+
+<p>Finally to combine the two if you&#39;re interested in how many of your indexes are within your cache you can run:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">SELECT
+   sum(idx_blks_read) as idx_read, 
+   sum(idx_blks_hit) as idx_hit, 
+   (sum(idx_blks_hit) - sum(idx_blks_read)) / sum(idx_blks_hit) as ratio
+FROM
+     pg_statio_user_indexes;
+</code></pre></div>
+<p>Generally, you should also expect this to be in the 99% similar to your regular cache hit rate.</p>
+
+</article>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <ul class="social-media-list">
+      
+      <li>
+        <a href="https://github.com/craigkerstiens/postgresguide.com">
+          <span class="icon  icon--github">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">craigkerstiens/postgresguide.com</span>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/postgresguide">
+          <span class="icon  icon--twitter">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+              c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+            </svg>
+          </span>
+
+          <span class="username">postgresguide</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  <div class="footer-license">
+    <div class="wrapper">
+      <a class="ccl" rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" src="../../licensebuttons.net/l/by-nc/4.0/88x31.png" /></a>
+      <p><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Postgres Guide</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="../index.html" property="cc:attributionName" rel="cc:attributionURL">Craig Kerstiens</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </p>
+    </div>
+  </div>
+
+</footer>
+
+
+  </body>
+
+
+<!-- Mirrored from postgresguide.com/performance/cache.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:56:59 GMT -->
+</html>

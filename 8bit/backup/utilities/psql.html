@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+
+  
+<!-- Mirrored from postgresguide.com/utilities/psql.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:56:55 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Psql</title>
+  <meta name="description" content="">
+
+  <script type="text/javascript" src='../assets/js/jquery.min.js'></script>
+  <script type="text/javascript" src='../assets/js/main.js'></script>
+
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="canonical" href="psql.html">
+  <link rel="alternate" type="application/rss+xml" title="Postgres Guide" href="../feed.xml" />
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-4670852-8', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="../index.html">Postgres Guide</a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+          
+          <a class="page-link" href="../about/index.html">About</a>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <div class="mobile-menu">
+          <hr>
+          
+            <a class="page-link" href="../setup/install.html">Installing Postgres</a>
+          
+            <a class="page-link" href="../setup/users.html">Users</a>
+          
+            <a class="page-link" href="../setup/example.html">Example Database</a>
+          
+          <hr>          
+          
+            <a class="page-link" href="../sql/select.html">Querying Data</a>
+          
+            <a class="page-link" href="../sql/joins.html">Joins</a>
+          
+            <a class="page-link" href="../sql/views.html">Views</a>
+          
+            <a class="page-link" href="../sql/window.html">Window functions</a>
+          
+          <hr>
+          
+            <a class="page-link" href="backup-restore.html">Backup and Restore</a>
+          
+            <a class="page-link" href="copy.html">Copy</a>
+          
+            <a class="page-link" href="psql.html">Psql</a>
+          
+          <hr>
+          
+            <a class="page-link" href="../tips/dates.html">Working with Dates and Times</a>
+          
+            <a class="page-link" href="../tips/window.html">Window Functions</a>
+          
+            <a class="page-link" href="../tips/disk-usage.html">Tracking Disk Usage</a>
+          
+          <hr>
+          
+            <a class="page-link" href="../performance/indexes.html">Indexes</a>
+          
+            <a class="page-link" href="../performance/explain.html">Execution Plan</a>
+          
+            <a class="page-link" href="../performance/conditional.html">Conditional Constraints</a>
+          
+            <a class="page-link" href="../performance/cache.html">Cache</a>
+          
+          <hr>
+          
+            <a class="page-link" href="../cool/hstore.html">HStore</a>
+          
+            <a class="page-link" href="../cool/arrays.html">Arrays</a>
+          
+            <a class="page-link" href="../sexy/enums.html">Enumerated Data Types</a>
+          
+            <a class="page-link" href="../cool/ctes.html">CTEs (Common Table Expressions)</a>
+          
+            <a class="page-link" href="../cool/json.html">JSON</a>
+          
+        </div>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <nav class="side">
+  <h4>Setup</h4>
+  
+    <li><a href="../setup/install.html">Installing Postgres</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../setup/users.html">Users</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../setup/example.html">Example Database</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>General SQL</h4>
+  
+    <li><a href="../sql/select.html">Querying Data</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sql/joins.html">Joins</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sql/views.html">Views</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sql/window.html">Window functions</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Utilities</h4>
+  
+    <li><a href="backup-restore.html">Backup and Restore</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="copy.html">Copy</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="psql.html">Psql</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Postgres Specific Tips</h4>
+  
+    <li><a href="../tips/dates.html">Working with Dates and Times</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../tips/window.html">Window Functions</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../tips/disk-usage.html">Tracking Disk Usage</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Postgres Performance</h4>
+  
+    <li><a href="../performance/indexes.html">Indexes</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../performance/explain.html">Execution Plan</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../performance/conditional.html">Conditional Constraints</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../performance/cache.html">Cache</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  <h4>Postgres the cool parts</h4>
+  
+    <li><a href="../cool/hstore.html">HStore</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../cool/arrays.html">Arrays</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../sexy/enums.html">Enumerated Data Types</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../cool/ctes.html">CTEs (Common Table Expressions)</a>
+      <nav>
+      </nav>
+    </li>
+  
+    <li><a href="../cool/json.html">JSON</a>
+      <nav>
+      </nav>
+    </li>
+  
+
+  
+
+  <h4>Further Reading</h4>
+  
+    <li><a href="http://www.craigkerstiens.com/">Craig Kerstien's Personal Blog</a></li>
+  
+    <li><a href="http://www.amazon.com/gp/product/184951030X/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=184951030X">Postgres High Performance</a></li>
+  
+    <li><a href="http://www.amazon.com/gp/product/1590594789/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1590594789">Beginning Databases with PostgreSQL</a></li>
+  
+    <li><a href="http://www.amazon.com/gp/product/1449316409/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1449316409">SQL and Relational Theory</a></li>
+  
+    <li><a href="http://www.amazon.com/The-Data-Warehouse-Toolkit-Dimensional/dp/0471200247?ie=UTF8&amp;tag=mypred-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=184951030X">The Data Warehouse Toolkit</a></li>
+  
+
+</nav>
+
+        <div class="post">
+          <header class="post-header">
+  <h1 class="post-title">Psql</h1>
+</header>
+
+<article class="post-content">
+
+    <a href="https://twitter.com/share" class="twitter-share-button" data-via="PostgresGuide">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+  <h2>What is psql</h2>
+
+<p>Psql is the interactive terminal for working with Postgres. Theres an abundance of flags available for use when working with psql, but lets focus on some of the most important ones, then how to connect:</p>
+
+<ul>
+<li>  -h the host to connect to</li>
+<li>  -U the user to connect with</li>
+<li><p>-p the port to connect to (default is 5432)</p>
+
+<p>psql -h localhost -U username databasename</p></li>
+</ul>
+
+<p>The other option is to use a full string and let psql parse it:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">psql &quot;dbname=dbhere host=hosthere user=userhere password=pwhere port=5432 sslmode=require&quot;
+</code></pre></div>
+<p>Once you&#39;ve connected you can begin querying immediately. In addition to basic queries you can also use certain commands. Running \? will give you a list of all available commands, though a few key ones are called out below.</p>
+
+<h2>Commonly used commands</h2>
+
+<h3>Turn query timing on</h3>
+
+<p>By default the timing of query results will not be available, but we can turn it on by using the following command.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \timing
+Timing is on.
+</code></pre></div>
+<p>This will show query timing in milliseconds.</p>
+
+<h3>List tables in database</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \d
+      List of relations
+ Schema |   Name    | Type  | Owner 
+--------+-----------+-------+-------
+ public | employees | table | craig
+(1 row)
+</code></pre></div>
+<h3>Describe a table</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \d employees 
+           Table &quot;public.employees&quot;
+  Column   |         Type          | Modifiers 
+-----------+-----------------------+-----------
+ id        | integer               | 
+ last_name | character varying(50) | 
+ salary    | integer               | 
+Indexes:
+    &quot;idx_emps&quot; btree (salary)
+</code></pre></div>
+<h3>List all tables in database along with some additional information</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \d+
+       List of relations
+Schema | Name  | Type  |   Owner   |  Size  | Description
+-------+-------+-------+-----------+--------+-------------
+public | users | table | jarvis    | 401 MB |
+(1 row)
+</code></pre></div>
+<h3>Describe a table with additional information</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#\d+ users
+          Table &quot;public.users&quot;
+  Column   |  Type   |   Modifiers   | Storage  | Stats target | Description
+-----------+---------+---------------+----------+--------------+-------------
+userid     | bigint  | not null      | plain    |              |
+fullname   | text    | not null      | extended |              |
+email      | text    | not null      | extended |              |
+phone      | text    | not null      | extended |              |
+credits    | money   | default 0.0   | plain    |              |
+parked     | boolean | default false | plain    |              |
+terminated | boolean | default false | plain    |              |
+
+Indexes:
+    &quot;users_pkey&quot; PRIMARY KEY, btree (userid)   
+</code></pre></div>
+<h3>List all databases</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \l
+          List of databases
+Name     |   Owner   | Encoding | Collate | Ctype |      Access privileges
+---------+-----------+----------+---------+-------+-----------------------------
+learning | jarvis    | UTF8     | C       | UTF-8 |
+</code></pre></div>
+<h3>List all databases with additional information</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \l+
+          List of databases
+  Name    |   Owner   | Encoding | Collate | Ctype |      Access privileges      |  Size   | Tablespace |                Description
+----------+-----------+----------+---------+-------+-----------------------------+---------+------------+--------------------------------------------
+learning  | jarvis    | UTF8     | C       | UTF-8 |                             | 492 MB  | pg_default |
+</code></pre></div>
+<h3>List all schemas</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \dn
+List of schemas
+ Name  | Owner
+-------+--------
+public | jarvis
+(1 row)
+</code></pre></div>
+<h3>List all schemas with additional information</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># \dn+
+List of schemas
+Name   | Owner  | Access privileges |      Description
+-------+--------+-------------------+------------------------
+public | jarvis | jarvis=UC/jarvis +| standard public schema
+       |        | =UC/jarvis        |
+(1 row)
+</code></pre></div>
+<h3>List all functions</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#\df
+</code></pre></div>
+<h3>List all functions with additional information</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#\df+
+</code></pre></div>
+<h3>Connect to another database</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#\c dbname
+</code></pre></div>
+<h3>Quit from postgres shell</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#\q 
+</code></pre></div>
+<h3>Text editor inside psql</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#\e
+</code></pre></div>
+<p>This opens your default text editor inside psql shell.Pretty handy for query modifications.</p>
+
+<p>The commands can be given a regex for eg. \df *to_array* lists all functions that contain to_array in its name.</p>
+
+<p>Of course there are lot many other commands, as said above \? will list all of them, and from there we can pick up whatever we want.Psql is a powerful tool once we master it, and since it is command line, we can use it across environments.</p>
+
+</article>
+
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <ul class="social-media-list">
+      
+      <li>
+        <a href="https://github.com/craigkerstiens/postgresguide.com">
+          <span class="icon  icon--github">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+            </svg>
+          </span>
+
+          <span class="username">craigkerstiens/postgresguide.com</span>
+        </a>
+      </li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/postgresguide">
+          <span class="icon  icon--twitter">
+            <svg viewBox="0 0 16 16">
+              <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+              c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+            </svg>
+          </span>
+
+          <span class="username">postgresguide</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  <div class="footer-license">
+    <div class="wrapper">
+      <a class="ccl" rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" src="../../licensebuttons.net/l/by-nc/4.0/88x31.png" /></a>
+      <p><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Postgres Guide</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="../index.html" property="cc:attributionName" rel="cc:attributionURL">Craig Kerstiens</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </p>
+    </div>
+  </div>
+
+</footer>
+
+
+  </body>
+
+
+<!-- Mirrored from postgresguide.com/utilities/psql.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:56:55 GMT -->
+</html>
