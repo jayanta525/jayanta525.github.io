@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from postgresguide.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:56:32 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>8bit Computer</title>
+  <meta name="description" content="">
+  <meta name="theme-color" content="#424242"/>
+  <script type="text/javascript" src='assets/js/jquery.min.js'></script>
+  <script type="text/javascript" src='assets/js/main.js'></script>
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="canonical" href="index.html">
+  <link rel="alternate" type="application/rss+xml" title="8bit Computer" href="feed.xml" />
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-4670852-8', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:hover {background-color:#f5f5f5;}
+
+</style>
+</head>
+
+
+  <body>
+	<a name="top"></a>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="index.html">8-bit Computer</a>
+
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+
+          <a class="page-link" href="https://github.com/jayanta525/8-bit-computer">GitHub</a>
+          <a class="page-link" href="about.html">About</a>
+		  <a class="page-link" href="about.html#support">Support</a>
+
+
+
+
+
+
+
+
+
+
+        <div class="mobile-menu">
+          <hr>
+
+            <a class="page-link" href="parts.html">Parts List</a>
+          <hr>
+            <a class="page-link" href="clock.html">Clock</a>
+          <hr>
+            <a class="page-link" href="register.html">Registers</a>
+			<hr>
+            <a class="page-link" href="ram.html">MAR</a>
+            <a class="page-link" href="ram.html#ram">RAM</a>
+			<hr>
+            <a class="page-link" href="pc.html">Program Counter</a>
+			<hr>
+            <a class="page-link" href="alu.html">ALU</a>
+			<hr>
+            <a class="page-link" href="bus.html">BUS</a>
+            <a class="page-link" href="bus.html#cpu">CPU Logic</a>
+			<hr>
+            <a class="page-link" href="output.html">Output</a>
+
+
+
+
+
+
+        </div>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <nav class="side">
+  <h4>Parts List</h4>
+
+    <li><a href="parts.html">ICs</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="parts.html#component">Components</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="parts.html#power">Power Supply</a>
+      <nav>
+      </nav>
+    </li>
+   <li><a href="parts.html#tools">Tools</a>
+      <nav>
+      </nav>
+    </li>
+
+  <h4>Clock</h4>
+
+    <li><a href="clock.html">Astable Multivibrator</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="clock.html#monostable">Monostable</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="clock.html#bistable">Bistable</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="clock.html#multiplexer">Multiplexer Logic</a>
+      <nav>
+      </nav>
+    </li>
+
+<h4>Registers</h4>
+
+    <li><a href="register.html">Accumulator</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="register.html#bregister">B Register</a>
+      <nav>
+      </nav>
+    </li>
+    <li><a href="register.html#ir">Instruction Register</a>
+      <nav>
+      </nav>
+    </li>
+
+	<li><a href="register.html#testing">Register Testing</a>
+      <nav>
+      </nav>
+    </li>
+  <h4>RAM</h4>
+
+<li><a href="ram.html">MAR</a>
+      <nav>
+      </nav>
+    </li>
+    <li><a href="ram.html#ram">RAM Module</a>
+      <nav>
+      </nav>
+    </li>
+
+      <li><a href="ram.html#testing">Testing RAM Module</a>
+      <nav>
+      </nav>
+    </li>
+
+ <h4>PC</h4>
+
+    <li><a href="pc.html">Binary Counter</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="pc.html#pc">Program Counter</a>
+      <nav>
+      </nav>
+    </li>
+
+
+
+  <h4>ALU</h4>
+
+
+
+    <li><a href="alu.html">ALU build</a>
+      <nav>
+      </nav>
+    </li>
+
+    <li><a href="alu.html#testing">Testing & Troubleshooting</a>
+      <nav>
+      </nav>
+    </li>
+    <h4>BUS</h4>
+
+    <li><a href="bus.html">Connecting to the BUS</a>
+      <nav>
+      </nav>
+    </li>
+    <li><a href="bus.html#cpu">CPU Logic</a>
+      <nav>
+      </nav>
+    </li>
+
+
+    <li><a href="bus.html#testing">Troubleshooting</a>
+      <nav>
+      </nav>
+    </li> <h4>Output</h4>
+
+    <li><a href="output.html">Binary Outputs</a>
+      <nav>
+      </nav>
+    </li>
+    <li><a href="output.html#bcd">BCD decoder</a>
+      <nav>
+      </nav>
+    </li>
+
+
+    <li><a href="output.html#segment">7 Segment Display</a>
+      <nav>
+      </nav>
+    </li>
+
+
+
+
+
+
+
+
+</nav>
+<div class="post">
+          <h1>ALU</h1>
+
+<blockquote>
+<p>The below listed ICs may be subjected to availability. Alternatives/Substitutes may be used.</p>
+</blockquote>
+
+<h2>Building the ALU</h2>
+<p></p>
+
+<a name="testing"></a>
+<p></p>
+  <a href="#top" style="float: right;">back to top</a>
+  <p></p>
+  <br>
+
+<h2>ALU Testing</h2>
+<p>The power connections are a sensitive part, an unstable power connection may cause inconvinience. A Dual Power Suppy is suggested although normal adapters will also work, provided it satisfies the current requirement. Alternatively, 5 volts from SMPS can also be used.</p>
+
+
+<br>
+<p>**A constant voltage power source is required, else the program counter will malfunction.<br>
+   On this setup, 5V from a 350W SMPS is used to provied power to different modules of the system.</p>
+
+<p></p>
+  <a href="#top" style="float: right;">back to top</a>
+  <p></p>
+  <br>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+
+  <div class="footer-license">
+    <div class="wrapper">
+
+      <p>Mini-Project 5th Semester: 8-bit Computer.
+    </p>
+    </div>
+  </div>
+
+</footer>
+
+
+  </body>
+
+
+<!-- Mirrored from postgresguide.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Oct 2018 19:56:50 GMT -->
+</html>
