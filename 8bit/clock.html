@@ -268,45 +268,73 @@ tr:hover {background-color:#f5f5f5;}
           <h1>Clock Module</h1>
 
 <blockquote>
-<p>The below listed ICs may be subjected to availability. Alternatives/Substitutes may be used.</p>
+<p>555 Timer is used as oscilator for pulse generation of 50% duty cycle. Alternative timer circuits w/ crystal may also be used.</p>
 </blockquote>
 
 <h2>Astable Multivibrator</h2>
+<p>The Astable Multivibrator is another type of cross-coupled transistor switching circuit that has NO stable output states as it changes from one state to the other all the time.</p>
+<img src="sch/auto.png">
 
+<p></p>
+  <a href="#top" style="float: right;">back to top</a>
+  <p></p>
+  <br>
 <a name="monostable"></a>
-<p></p>
-  <a href="#top" style="float: right;">back to top</a>
-  <p></p>
-  <br>
-
+<br><br>
 <h2>Monostable Multivibrator</h2>
-<p>Certain breadboards have the power rails broken on the middle on both the sides. Connecting those rails with jumpers is another hassle. Good quality standard sized breadboards with common power rails are preferred.</p>
+<p>The Monostable 555 Timer circuit triggers on a negative-going pulse applied to pin 2 and this trigger pulse must be much shorter than the output pulse width allowing time for the timing capacitor to charge and then discharge fully. Once triggered, the 555 Monostable will remain in this “HIGH” unstable output state until the time period set up by the Resistor and Capacitor in the network has elapsed.</p>
+<img src="sch/manual.png">
 
 
+<p></p>
+  <a href="#top" style="float: right;">back to top</a>
+  <p></p>
+  <br>
 <a name="bistable"></a>
-<p></p>
-  <a href="#top" style="float: right;">back to top</a>
-  <p></p>
-  <br>
-
+<br><br>
 <h2>Bistable Mode</h2>
-<p>The power connections are a sensitive part, an unstable power connection may cause inconvinience. A Dual Power Suppy is suggested although normal adapters will also work, provided it satisfies the current requirement. Alternatively, 5 volts from SMPS can also be used.</p>
+<p>This 555 timer circuit will remain in either state indefinitely and is therefore bistable. Then the Bistable 555 timer is stable in both states, “HIGH” and “LOW”. The threshold input (pin 6) is connected to ground to ensure that it cannot reset the bistable circuit as it would in a normal timing application.</p>
+<img src="sch/select.png">
 
 
-<br>
-<p>**A constant voltage power source is required, else the program counter will malfunction.<br>
-   On this setup, 5V from a 350W SMPS is used to provied power to different modules of the system.</p>
-
-<a name="multiplexer"></a>
 <p></p>
   <a href="#top" style="float: right;">back to top</a>
   <p></p>
   <br>
-
+<a name="multiplexer"></a>
+<br><br>
 <h2>Clock Multiplex Logic</h2>
-<p>Not mandatory to have, although it will make the work much easier. Multimeter is necessary for testing the connections/resistance/voltage.</p>
+<p>Multiplex logic using Logic gates to multiplex two different mode of the clock pulse into a single output line.
+<br><br>
+</p>
 
+<img src="sch/clk.png">
+<br><br>
+<table>
+  <tr>
+    <th>Label</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>MANUAL</td>
+    <td>Manual pulse signal from Monostable Multivibrator.</td>
+</tr>
+<tr>
+  <td>AUTO</td>
+  <td>Mode Select between two different pulse mode.</td>
+</tr>
+<tr>
+  <td>CLOCK</td>
+  <td>Automatic pulse signal from Astable Multivibrator.</td>
+</tr>
+<tr>
+  <td>HALT</td>
+  <td>Halt Signal, stops the clock, Active LOW.</td>
+</tr>
+</table>
+<p>
 
+</p>
 <p></p>
   <a href="#top" style="float: right;">back to top</a>
   <p></p>
