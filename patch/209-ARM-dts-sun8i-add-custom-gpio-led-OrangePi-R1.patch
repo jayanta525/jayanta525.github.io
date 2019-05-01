@@ -1,0 +1,47 @@
+Index: linux-4.14.106/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+===================================================================
+--- linux-4.14.106.orig/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
++++ linux-4.14.106/arch/arm/boot/dts/sun8i-h2-plus-orangepi-zero.dts
+@@ -78,6 +78,42 @@
+ 			label = "orangepi:red:status";
+ 			gpios = <&pio 0 17 GPIO_ACTIVE_HIGH>;
+ 		};
++
++		power_led {
++			label = "orangepi:green:power";
++			gpios = <&pio 0 12 GPIO_ACTIVE_HIGH>;
++		};
++
++		wan_led {
++           label = "orangepi:green:wan";
++           gpios = <&pio 0 11 GPIO_ACTIVE_HIGH>;
++       };
++
++       access_led {
++           label = "orangepi:red:access";
++           gpios = <&pio 0 6 GPIO_ACTIVE_HIGH>;
++       };
++
++       accesss_led {
++           label = "orangepi:green:accesss";
++           gpios = <&pio 0 1 GPIO_ACTIVE_HIGH>;
++       };
++
++       wlan_led {
++           label = "orangepi:green:wlan";
++           gpios = <&pio 0 3 GPIO_ACTIVE_HIGH>;
++       };
++
++		lan0_led {
++           label = "orangepi:green:lan0";
++           gpios = <&pio 0 15 GPIO_ACTIVE_HIGH>;
++       };
++
++       lan1_led {
++           label = "orangepi:green:lan1";
++           gpios = <&pio 0 16 GPIO_ACTIVE_HIGH>;
++       };
++
+ 	};
+ 
+ 	reg_vcc_wifi: reg_vcc_wifi {
