@@ -1,0 +1,158 @@
+<html>
+<head></head>
+<body onload="init()">
+<center>
+	<div style="width:450px;border:3px solid black;padding:20px">
+		<h1>LoRa AC Control</h1>
+		<div id="main">
+			<div id="updateMe">
+				<div style="width:400px;border: 3px solid black;padding:20px">
+					<h2>UNO with LoRa Status:</h2>
+					<h3 id="uno2"></h3>
+					<h3 id="uno21"></h3>
+					<form action="send.php" method="GET" target="hidden-form">
+						<input type="hidden" name="client" value="2">
+						<button type="submit" onclick="shows();setTimeout(hides,3000)" name="access" value="1" style="padding:10px" id="button1">TURN ON</button>
+					</form>
+					<div id="stat" style="display:none"></div>
+				</div>
+				<div style="border: 5px;padding:20px"></div>
+				<div style="width:400;border: 3px solid black;padding:20px">
+					<h2>UNO with LoRa/GPS Status:</h2>
+					<h3 id="uno3"></h3>
+					<h3 id="uno31"></h3>
+					<form action="send.php" method="GET" target="hidden-form">
+						<input type="hidden" name="client" value="3">
+						<button type="submit" onclick="showss();setTimeout(hidess,3000)" name="access" value="1" style="padding:10px" id="button2">TURN ON</button>
+					</form>
+					<div id="stat2" style="display:none"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</center>
+</body>
+<IFRAME style="display:none" name="hidden-form"></IFRAME>
+<script type="text/javascript">
+function refresh() {
+	var req = new XMLHttpRequest();
+	console.log("Grabbing Value");
+	req.onreadystatechange = function () {
+		if (req.readyState == 4 && req.status == 200) {
+			document.getElementById('uno2').innerText = "Relay Status: "+req.responseText[0];
+			document.getElementById('uno21').innerText = "Sensor Value: "+req.responseText[1]+req.responseText[2]+req.responseText[3]+" lux";
+		}
+	}
+	req.open("GET", '2/', true);
+	req.send(null);
+}
+function refresht() {
+	var req = new XMLHttpRequest();
+	console.log("Grabbing Value");
+	req.onreadystatechange = function () {
+		if (req.readyState == 4 && req.status == 200) {
+		document.getElementById('uno3').innerText = "Relay Status: "+req.responseText[0];
+		document.getElementById('uno31').innerText = "Sensor Value: "+req.responseText[1]+req.responseText[2]+"."+req.responseText[4]+req.responseText[5]+" \u2103";
+		}
+	}
+	req.open("GET", '3/', true);
+	req.send(null);
+}
+function init()
+{
+	refresh()
+	refresht()
+	update2()
+	update3()
+	var int = self.setInterval(function () {
+		refresht()
+		refresh()
+		update2()
+		update3()
+	}, 1000);
+}
+function shows(){
+	var x = document.getElementById("stat");
+	x.innerHTML = "Sending.";
+	if(x.style.display == "none"){
+		x.style.display = "block";
+	}
+	setTimeout(function(){x.innerHTML = "Sending.."},1000);
+	setTimeout(function(){x.innerHTML = "Sending..."},2000);
+}
+function hides(){
+	var x = document.getElementById("stat");
+	if(x.style.display == "block"){
+		x.style.display = "none";
+	}
+	var x2 = document.getElementById("button1");
+	if(x2.innerHTML == "TURN ON"){
+		x2.innerHTML = "TURN OFF";
+		x2.value = "0";
+	}
+	else{
+		x2.innerHTML = "TURN ON"
+		x2.value = "1";
+	}
+}
+function showss(){
+	var x = document.getElementById("stat2");
+	x.innerHTML = "Sending.";
+	if(x.style.display == "none"){
+		x.style.display = "block";
+	}
+	setTimeout(function(){x.innerHTML = "Sending.."},1000);
+	setTimeout(function(){x.innerHTML = "Sending..."},2000);
+}
+function hidess(){
+	var x = document.getElementById("stat2");
+	if(x.style.display == "block"){
+		x.style.display = "none";
+	}
+	var x2 = document.getElementById("button2");
+	if(x2.innerHTML == "TURN ON"){
+		x2.innerHTML = "TURN OFF";
+		x2.value = "0";
+	}
+	else{
+		x2.innerHTML = "TURN ON"
+		x2.value = "1";
+	}
+}
+function update2(){
+	var req = new XMLHttpRequest();
+	var x2 = document.getElementById("button1");
+	console.log("Grabbing Value");
+	req.onreadystatechange = function () {
+		if (req.readyState == 4 && req.status == 200) {
+			if (req.responseText[0] == "1"){
+				x2.innerHTML = "TURN OFF";
+				x2.value = "0";
+				}
+			else{
+				x2.innerHTML = "TURN ON";
+				x2.value = "1";
+				}
+		}
+	}
+	req.open("GET", '2/', true);
+	req.send(null);
+}
+function update3(){
+	var req = new XMLHttpRequest();
+	var x2 = document.getElementById("button2");
+	console.log("Grabbing Value");
+	req.onreadystatechange = function () {
+		if (req.readyState == 4 && req.status == 200) {
+			if (req.responseText[0] == "1"){
+				x2.innerHTML = "TURN OFF";
+				x2.value = "0";
+			}else{
+				x2.innerHTML = "TURN ON";
+				x2.value = "1";}}
+	}
+	req.open("GET", '3/', true);
+	req.send(null);
+}
+</script>
+</html>
